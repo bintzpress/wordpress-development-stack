@@ -44,6 +44,8 @@
 		"neilbrayfield.php-docblocker",
 		"dbaeumer.jshint",
 		"dbaeumer.vscode-eslint",
-		"hookyqr.beautify"
+		"hookyqr.beautify",
+		"syler.sass-indented",
+		"mrorz.language-gettext"
 	]
 }
