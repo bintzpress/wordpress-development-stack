@@ -15,7 +15,9 @@ RUN apt-get update && apt-get install -y \
     curl \
     git \
     vim-tiny \
-    build-essential
+    build-essential \
+    gettext \
+    locales &&
 
 RUN curl -L https://phpdoc.org/phpDocumentor.phar -o phpDocumentor.phar && \
     mv phpDocumentor.phar /usr/local/bin/phpdoc && \
@@ -30,7 +32,8 @@ RUN curl -L https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 RUN useradd -s /bin/bash -u 1000 developer && \
     usermod -aG sudo developer && \
-    usermod -aG www-data developer
+    usermod -aG www-data developer && \
+    echo "developer:developer" | chpasswd 
 
 COPY bin/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod a+rx /usr/local/bin/entrypoint.sh
