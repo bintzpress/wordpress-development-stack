@@ -1,0 +1,57 @@
+#
+# This docker-compose.yml is used
+# to bring up a WordPress development
+# environment that includes
+#
+#     - MySQL server container for WordPress database
+#     - WordPress container using apache
+#     - HAProxy container to act as reverse proxy
+#
+
+version: "3.9"
+services:
+  db:
+    image: mysql:${MYSQL_TAG}
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - 127.0.0.1:3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: somewordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
+  wordpress:
+    image: wordpress-groupperm:${WORDPRESS_TAG}
+    build: 
+      context: ./wordpress-groupperm/
+      args:
+        WORDPRESS_TAG: ${WORDPRESS_TAG}
+    depends_on:
+      - db
+    volumes:
+      - wordpress_data:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DEBUG: 1
+   
+  proxy:
+    depends_on:
+      - wordpress
+    image: haproxy:${HAPROXY_TAG}
+    volumes:
+      - /srv/haproxy:/usr/local/etc/haproxy
+    ports:
+      - 80:80
+      - 443:443
+      - 127.0.0.1:8404:8404
+
+volumes:
+  db_data:
+    name: db_${WORDPRESS_TAG}_data
+  wordpress_data:
+    name: wordpress_${WORDPRESS_TAG}_data

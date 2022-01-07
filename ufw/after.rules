@@ -1,0 +1,73 @@
+# 
+# These rules are to get around docker problems
+#
+# See https://github.com/docker/for-linux/issues/777
+#
+
+*nat
+:PREROUTING ACCEPT [0:0]
+
+# Flush rules before we start so things don't get duplicated on ufw reload
+-F PREROUTING
+
+###### Here you add the IP addresses allowed in from internet             ######
+###### Uncomment and correct for the IPs you want to let in from internet ######
+#-A PREROUTING -p tcp -m tcp -s 173.20.15.10,152.19.8.15 --dport 80 -j MARK --set-xmark 0x5/0xffffffff
+#-A PREROUTING -p tcp -m tcp -s 173.20.15.10,152.19.8.15 --dport 443 -j MARK --set-xmark 0x5/0xffffffff
+
+# Debug
+#-A PREROUTING -j LOG --log-prefix "NAT-PRE:" --log-level 6
+
+# Replace the docker rule that was here before
+-A PREROUTING -m addrtype --dst-type LOCAL -j DOCKER
+
+# Commit nat table
+COMMIT
+
+*filter
+:ufw-after-input - [0:0]
+:ufw-after-output - [0:0]
+:ufw-after-forward - [0:0]
+# Need to create the DOCKER-USER chain now, in case docker isn't running yet so the below commands don't fail
+:DOCKER-USER - [0:0]
+
+# don't log noisy services by default (UFW DEFAULT)
+-A ufw-after-input -p udp --dport 137 -j ufw-skip-to-policy-input
+-A ufw-after-input -p udp --dport 138 -j ufw-skip-to-policy-input
+-A ufw-after-input -p tcp --dport 139 -j ufw-skip-to-policy-input
+-A ufw-after-input -p tcp --dport 445 -j ufw-skip-to-policy-input
+-A ufw-after-input -p udp --dport 67 -j ufw-skip-to-policy-input
+-A ufw-after-input -p udp --dport 68 -j ufw-skip-to-policy-input
+
+# don't log noisy broadcast (UFW DEFAULT)
+-A ufw-after-input -m addrtype --dst-type BROADCAST -j ufw-skip-to-policy-input
+
+###### Here you add the allowed ports for regular traffic (not docker) ######
+#-A ufw-after-input -s 216.XXX.XXX.XXX -j ACCEPT
+#-A ufw-after-input -p TCP --dport 22 -s 10.0.0.0/8 -j ACCEPT
+
+# Flush rules before we start so things don't get duplicated on ufw reload
+-F DOCKER-USER
+
+###### Here you add your Docker networks                                 ######
+###### Uncomment and correct so that your containers can communicate out ######
+#-A DOCKER-USER -s 172.17.0.0/16,172.20.0.0/16 -j ACCEPT
+
+# Debug
+#-A DOCKER-USER -m conntrack --ctstate ESTABLISHED,RELATED -j LOG --log-prefix "ALLOW CONNTRACK:" --log-level 6
+
+# Allow packets after connection gets brought up, since they don't hit the docker nat rules and won't get tagged / allowed
+-A DOCKER-USER -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+# Debug
+#-A DOCKER-USER -m mark --mark 0x5 -j LOG --log-prefix "ALLOW DOCKER-USER:" --log-level 6
+#-A DOCKER-USER -m mark ! --mark 0x5 -j LOG --log-prefix "DROP DOCKER-USER:" --log-level 6
+
+# Drop anything that didn't get marked or previously accepted
+-A DOCKER-USER -m mark ! --mark 0x5 -j DROP
+
+# Replace the default docker rule
+-A DOCKER-USER -j RETURN
+
+# Commit filter table
+COMMIT
