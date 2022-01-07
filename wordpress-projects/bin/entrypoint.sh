@@ -42,7 +42,7 @@ if [ ! -e /home/developer/.bashrc ]; then
      nvm install lts/dubnium &&
      npm install --global grunt-cli &&
      npm install --global grunt-init &&
-     npm install --global jshint 
+     npm install --global jshint"
   rm /home/developer/install.sh
 
   echo "Finished Initializing Developer Home Directory"

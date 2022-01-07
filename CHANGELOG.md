@@ -6,7 +6,8 @@ This file contains changes to the wordpress-cluster project.
 
 ### Changed
 
-- wordpress-projecs/Dockerfile to install gettext
+- wordpress-projects/Dockerfile to install gettext
+- wordpress-projects/bin/entrypoint.sh to install grunt-pot
 
 ## 0.1.0
 

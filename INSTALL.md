@@ -33,3 +33,9 @@ Click Open Folder in Container
 Go to the directory where put wordpress-stack project
 Click Open
 Wait a while because it has to build images
+
+## Install poedit
+You'll want to install poedit on the host if you are going to add 
+translations for pot files
+You'll need to transfer the pot, po, and mo files from the projects
+container

@@ -3,6 +3,9 @@ FROM ubuntu:latest
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
+    locales \
+    gettext \
+    build-essential \
     bash-completion \
     sudo \
     mysql-client \
@@ -14,10 +17,7 @@ RUN apt-get update && apt-get install -y \
     minify \
     curl \
     git \
-    vim-tiny \
-    build-essential \
-    gettext \
-    locales &&
+    vim-tiny
 
 RUN curl -L https://phpdoc.org/phpDocumentor.phar -o phpDocumentor.phar && \
     mv phpDocumentor.phar /usr/local/bin/phpdoc && \
