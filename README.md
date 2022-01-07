@@ -2,7 +2,7 @@
 
 ## About the Project
 
-This project can be used to easily setup a WordPress development environment using VS Code.
+This project can be used to easily setup a containerized WordPress development environment using VS Code.
 
 The environment includes a project container to development on that has git, php, wp-cli, node-js, npm, 
 grunt, and grunt-init.
