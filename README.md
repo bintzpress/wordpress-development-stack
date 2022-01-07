@@ -18,7 +18,7 @@ Example type in "wp theme list" into the terminal.
 ## About Me
 
 My name is Brian Bintz. I am a freelance writer, developer, and trainer.
-Check out my profile on (GitHub)[https://www.github.com/bintzpress] for more details on me. If you have any
+Check out my profile on [GitHub](https://www.github.com/bintzpress) for more details on me. If you have any
 issues with this project please contact me at brian@bintzpress.com.
 
 ## About the Project
