@@ -44,7 +44,7 @@ services:
       - wordpress
     image: haproxy:${HAPROXY_TAG}
     volumes:
-      - /srv/haproxy:/usr/local/etc/haproxy
+      - ${HAPROXY_HOST_DIR}:/usr/local/etc/haproxy
     ports:
       - 80:80
       - 443:443

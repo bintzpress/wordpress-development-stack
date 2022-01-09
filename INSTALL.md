@@ -1,7 +1,7 @@
 # Install Instructions
 
 ## Setup docker-compose environment variables
-Copy .env.sample to .env and edit as you'd like
+Copy over .env.linux_sample or .env.windows_sample depending on your OS to .env and edit as you'd like.
 
 ## Setup domain name if want to be internet accessible
 Go to a DNS domain registrar and setup a DNS name 
@@ -12,10 +12,13 @@ Add the IP address of the host and the domain name to use
   On Windows edit C:\Windows\System32\drivers\etc\hosts
 
 ## Setup HAPPROXY
-Do a mkdir -p /srv/haproxy/ssl
-Copy haproxy/haproxy-SSL.cfg to /srv/haproxy/haproxy.cfg if using SSL otherwise
-copy haproxy/haproxy-NoSSL.cfg to /srv/haproxy/haproxy.cfg
-If using SSL copy certs and keys to /srv/haproxy/ssl
+On Linux the default haproxy config directory is /srv/haproxy. On Windows it is C:\Srv\haproxy. Replace ${HAPROXY_HOST_DIR} with what it is on your OS.
+
+Do a mkdir -p ${HAPROXY_HOST_DIR}/ssl
+Copy haproxy/haproxy-SSL.cfg to ${HAPROXY_HOST_DIR}
+haproxy.cfg if using SSL otherwise
+copy haproxy/haproxy-NoSSL.cfg to ${HAPROXY_HOST_DIR}/haproxy.cfg
+If using SSL copy certs and keys to ${HAPROXY_HOST_DIR}/ssl
 
 ## Setup ufw if on Ubuntu and want to restrict remote access
 Do a ufw enable
