@@ -1,6 +1,6 @@
 # Changelog
 
-This file contains changes to the wordpress-cluster project.
+This file contains changes to the wordpress-development-stack project.
 
 ## 0.2.0
 
