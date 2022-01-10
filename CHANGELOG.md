@@ -2,6 +2,13 @@
 
 This file contains changes to the wordpress-development-stack project.
 
+## 0.3.0
+
+### Changed
+
+- updated .env-windows_sample and .env-linux_sample and docker-compose-wordpress.yml to use a directory to find
+  the HAProxy configuration directory.
+
 ## 0.2.0
 
 ### Added
