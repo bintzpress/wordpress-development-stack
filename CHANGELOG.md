@@ -2,6 +2,13 @@
 
 This file contains changes to the wordpress-development-stack project.
 
+## 0.4.0
+
+### Changed
+
+- went back to developer home being built into the image and the Projects directory being mounted from 
+  the host
+  
 ## 0.3.0
 
 ### Changed
