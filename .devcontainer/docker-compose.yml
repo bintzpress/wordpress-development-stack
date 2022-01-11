@@ -5,4 +5,4 @@ version: "3.9"
 services:
   projects:
     volumes:
-      - ${PROJECTS_DIR}:/home/developer/Projects
+      - ${PROJECTS_HOST_DIR}:/home/developer/Projects

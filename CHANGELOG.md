@@ -2,6 +2,15 @@
 
 This file contains changes to the wordpress-development-stack project.
 
+## 0.5.0
+
+### Changed
+
+- moved .env files back to the base directory and changed 
+  devcontainer.json to load docker-compose.yml last.
+- renamed PROJECTS_DIR to PROJECTS_HOST_DIR to make it clear the 
+  directory is on the host.
+
 ## 0.4.0
 
 ### Changed

@@ -12,11 +12,9 @@ services:
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
     volumes:
-      - developer_data:/home/developer
       - wordpress_data:/var/www/html
 
 volumes:
   wordpress_data:
     name: wordpress_${WORDPRESS_TAG}_data
-  developer_data:
   
