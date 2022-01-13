@@ -2,6 +2,10 @@
 
 This file contains changes to the wordpress-development-stack project.
 
+## 0.6.0
+
+- Fixed it so .env isn't committed anymore.
+
 ## 0.5.0
 
 ### Changed
