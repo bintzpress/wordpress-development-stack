@@ -42,7 +42,8 @@ RUN useradd -m -d /home/developer -s /bin/bash -u 1000 developer && \
 
 # Setup wp-cli for the developer user
 RUN echo "source /etc/profile.d/wp_completion.sh" >> /home/developer/.bashrc && \
-    su - developer -c "wp package install wp-cli/restful" && \
+    su - developer -c "wp package install wp-cli/restful && \
+                       wp package install https://github.com/bintzpress/wp-cli-fse-support.git" && \
     echo "path: /var/www/html" >> /home/developer/.wp-cli/config.yml && \
     chown developer:developer /home/developer/.wp-cli/config.yml
 
