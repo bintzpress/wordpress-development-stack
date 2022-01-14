@@ -2,6 +2,12 @@
 
 This file contains changes to the wordpress-development-stack project.
 
+## 0.7.0
+
+- Changed so that COMPOSE_PROJECT_NAME is defined in .env
+- Changed so that WordPress and Project containers pull environment from the .wordpress.env file
+- Added .wordpress.env.sample which is a sample for WordPress environment variables. Includes debug, single site, and multi site settings.
+
 ## 0.6.0
 
 - Fixed it so .env isn't committed anymore.
