@@ -32,16 +32,8 @@ services:
       - db
     volumes:
       - wordpress_data:/var/www/html
-    environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: wordpress
-      WORDPRESS_DB_NAME: wordpress
-      WORDPRESS_DEBUG: "true"
-      WORDPRESS_CONFIG_EXTRA: "define( 'WP_DEBUG_LOG', true ); \
-        define( 'WP_DEBUG_DISPLAY', false ); \
-        @ini_set( 'display_errors', 0 ); \
-        define( 'SCRIPT_DEBUG', true );"
+    env_file: .wordpress.env
+
   proxy:
     depends_on:
       - wordpress
@@ -49,12 +41,10 @@ services:
     volumes:
       - ${HAPROXY_HOST_DIR}:/usr/local/etc/haproxy
     ports:
-      - 80:80
-      - 443:443
+      - ${HAPROXY_LISTEN_IP}:80:80
+      - ${HAPROXY_LISTEN_IP}:443:443
       - 127.0.0.1:8404:8404
 
 volumes:
   db_data:
-    name: db_${WORDPRESS_TAG}_data
   wordpress_data:
-    name: wordpress_${WORDPRESS_TAG}_data

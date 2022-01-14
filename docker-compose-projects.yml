@@ -6,20 +6,10 @@ services:
   projects:
     image: wordpress-projects:${PROJECTS_TAG}
     build: ./wordpress-projects/
-    environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: wordpress
-      WORDPRESS_DB_NAME: wordpress
-      WORDPRESS_DEBUG: "true"
-      WORDPRESS_CONFIG_EXTRA: "define( 'WP_DEBUG_LOG', true ); \
-        define( 'WP_DEBUG_DISPLAY', false ); \
-        @ini_set( 'display_errors', 0 ); \
-        define( 'SCRIPT_DEBUG', true );"
+    env_file: .wordpress.env
     volumes:
       - wordpress_data:/var/www/html
 
 volumes:
   wordpress_data:
-    name: wordpress_${WORDPRESS_TAG}_data
   
