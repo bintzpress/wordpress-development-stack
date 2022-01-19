@@ -2,6 +2,10 @@
 
 This file contains changes to the wordpress-development-stack project.
 
+## 0.8.0
+
+- Gutted things so that image building and the devcontainer is separated and this project is just the docker-compose.yml files to bring up the stack.
+
 ## 0.7.0
 
 - Changed so that COMPOSE_PROJECT_NAME is defined in .env

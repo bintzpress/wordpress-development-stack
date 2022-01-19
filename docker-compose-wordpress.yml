@@ -14,8 +14,6 @@ services:
     image: mysql:${MYSQL_TAG}
     volumes:
       - db_data:/var/lib/mysql
-    ports:
-      - 127.0.0.1:3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: somewordpress
       MYSQL_DATABASE: wordpress
@@ -23,27 +21,14 @@ services:
       MYSQL_PASSWORD: wordpress
 
   wordpress:
-    image: wordpress-groupperm:${WORDPRESS_TAG}
-    build: 
-      context: ./wordpress-groupperm/
-      args:
-        WORDPRESS_TAG: ${WORDPRESS_TAG}
+    image: bintzpress/wordpress-development:wordpress-groupperm-${WORDPRESS_TAG}
+    ports:
+      - 127.0.0.1:9080:80
     depends_on:
       - db
     volumes:
       - wordpress_data:/var/www/html
-    env_file: .wordpress.env
-
-  proxy:
-    depends_on:
-      - wordpress
-    image: haproxy:${HAPROXY_TAG}
-    volumes:
-      - ${HAPROXY_HOST_DIR}:/usr/local/etc/haproxy
-    ports:
-      - ${HAPROXY_LISTEN_IP}:80:80
-      - ${HAPROXY_LISTEN_IP}:443:443
-      - 127.0.0.1:8404:8404
+    env_file: .env_wordpress
 
 volumes:
   db_data:

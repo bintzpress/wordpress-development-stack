@@ -1,2 +1,2 @@
-.env
-.wordpress.env
+.env*
+!.env*_sample

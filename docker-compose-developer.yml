@@ -1,0 +1,13 @@
+#
+#
+
+version: "3.9"
+services:
+  developer:
+    image: bintzpress/wordpress-development:wordpress-developer-${DEVELOPER_TAG}
+    env_file: .env_wordpress
+    volumes:
+      - wordpress_data:/var/www/html
+
+volumes:
+  wordpress_data:
